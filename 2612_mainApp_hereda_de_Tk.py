@@ -2,31 +2,30 @@
 
 from tkinter import *
 
-class mainApp():
+class mainApp(Tk):
     
     # assumptions:
     
     # 1.- screen:
     size_screen         = '640x480'
     window_title        = 'my_screen'
-    background_screen   = 'lightgray'
+    background_screen   = 'blue'
     
     
     def __init__(self):
-        
-        # 1.- screen --> root (main_window)
-            # a) create
-        self.root = Tk()
+        # 1.- screen:
+            # a) invocar al constructor de Tk
+        Tk.__init__(self)
             # b) customize
-                # size
-        self.root.geometry(self.size_screen)
-                # title
-        self.root.title(self.window_title)
-                # backgroud
-        self.root.configure(bg = self.background_screen)
+        self.geometry(self.size_screen)
+        self.title(self.window_title)
+        self.configure(bg = self.background_screen)
+
+
 
     def maincycle(self):
-        self.root.mainloop()
+        # manage events
+        self.mainloop()
                
 
 
