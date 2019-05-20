@@ -38,11 +38,13 @@ class mainApp(Tk):
     
     def createlayout(self):
         # layout + screen interaction-capture
-        self.data_input            = ttk.Entry(self, textvariable = self.temperature).place(x = 10, y = 10)                                                # entry temperature on screen --> value ---> gotofeature = self.temperature
+        self.data_input            = ttk.Entry(self, textvariable = self.temperature).place(x = 10, y = 10)     # entry temperature on screen --> value ---> gotofeature = self.temperature
         self.label_conversion_type = ttk.Label(self, text = 'degrees:').place(x = 10 , y = 45)
-        self.conversion_type_f     = ttk.Radiobutton(self, text = 'fahrenheit', variable = self.conversion_type, value = 'F').place(x = 20, y = 70)        # click radiobutton on screen --> value, F, gotofeature = self.conversion_type   
-        self.conversion_type_c     = ttk.Radiobutton(self, text = 'celsius', variable = self.conversion_type, value = 'C').place(x = 20, y = 95)           # click radiobutton on screen --> value, C, gotofeature = self.conversion_type
+        self.conversion_type_f     = ttk.Radiobutton(self, text = 'fahrenheit', variable = self.conversion_type, value = 'F', command = self.converter).place(x = 20, y = 70)        # click radiobutton on screen --> value, F, gotofeature = self.conversion_type   
+        self.conversion_type_c     = ttk.Radiobutton(self, text = 'celsius', variable = self.conversion_type, value = 'C', command = self.converter).place(x = 20, y = 95)           # click radiobutton on screen --> value, C, gotofeature = self.conversion_type
 
+        # self.converter ---> self. xq converter (definido debajo) es un método de la clase
+        
 
     def validatetemperature(self, *args):
         value = self.temperature.get()                                 # screen interaction: capturamos del interfaz gráfico data introducido y acumulamos
@@ -52,11 +54,18 @@ class mainApp(Tk):
         except:
             self.temperature.set(self.__previous_value)                # screen interaction: devolvemos al interfaz gráfico último valor validado introducido
     
-     
-     #def converter(self, temperature, conversion_type):
+    def converter(self):
+        result = 0
+        if self.conversion_type.get() == 'F':
+            result = float(self.temperature.get()) * 9/5 + 32
+        elif self.conversion_type.get() == 'C':
+            result = (float(self.temperature.get()) - 32) * 5/9
+        self.temperature.set(result)
+   
         
-        
-    
+# .get() extraer valor de variable de control
+# .set() asignar valor a una variable de control
+           
     def maincycle(self):
         # manage events
         self.mainloop()    
